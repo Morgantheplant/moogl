@@ -1,12 +1,16 @@
 import { Bodies, Body } from 'matter-js';
 import { KEYCODE } from './constants';
 import Sprite from './sprite';
+import { setStyles } from './utils';
+import Bullet from './Bullet';
+import {DIRECTION} from './constants';
+
 class Player {
   constructor(options){
     this.node = options.node || document.createElement('div');
     this.health = options.health || 50;
     this.size = options.size;
-    this.setStyles(options.styles);
+    setStyles(this.node, options.styles);
     this.body = this.createPhysicsBody(options);
     this.sprite = this.createSpriteAnimations(options);
     this.addListeners();
@@ -16,7 +20,7 @@ class Player {
     const body = Bodies.circle(100,100, options.size/2);
     body.friction = 0.08;
     body.updateSelf = () => {
-      this.setStyles({
+       setStyles(this.node, {
         top:[Math.round(body.position.y), "px"].join(""),
         left:[Math.round(body.position.x), "px"].join("")
       });
@@ -30,20 +34,14 @@ class Player {
     return sprite;
   }
 
-  setStyles(styles){
-    Object.keys(styles).forEach((key) => {
-      this.node.style[key] = styles[key];
-    });
-  }
-
   jump(){
     this.sprite.jump();
     Body.setVelocity(this.body, {x:this.body.velocity.x,y:-2});
   }
 
   left(){
-     this.sprite.left();
-     Body.setVelocity(this.body, {x:-2,y:this.body.velocity.y});
+    this.sprite.left();
+    Body.setVelocity(this.body, {x:-2,y:this.body.velocity.y});
   }
 
   right(){
@@ -54,7 +52,22 @@ class Player {
 
   shoot(){
     this.sprite.shoot();
-    console.log('pew')
+    const bullet = new Bullet({
+      styles: {
+        position: 'absolute',
+        backgroundColor: '',
+        borderRadius: '50%',
+        height: '20px',
+        width: '20px',
+        boxShadow:'5px 5px 5px rgba(100,100,260,0.6)'
+      },
+      position: this.body.position,
+      direction: this.direction
+    })
+    this.node.parentElement.appendChild(bullet.node);
+    this.game.addBody(bullet.body);
+    const x = this.sprite.direction === DIRECTION.RIGHT ? 10 : -10;
+    Body.setVelocity(bullet.body, {x:x, y:bullet.body.velocity.y})
   }
 
   addListeners(){

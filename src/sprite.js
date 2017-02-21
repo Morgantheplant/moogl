@@ -1,4 +1,5 @@
 import { DIRECTION, TYPES, KEYCODE, SPRITE_DATA } from './constants';
+import { setStyles } from './utils';
 
 class Sprite {
   constructor(options){
@@ -25,7 +26,7 @@ class Sprite {
     // clean this up
     this.node.style.transform =  "translate(-40%, -60%)";
     let resetStep, resetImage;
-    if(this.direction === DIRECTION.RIGHT || this.isJumping){
+    if(this.direction === DIRECTION.RIGHT){
       resetImage = 'idle.png';
     }
     if(this.direction === DIRECTION.LEFT){
@@ -56,6 +57,7 @@ class Sprite {
       this.node.style.backgroundPosition = [position,'px'].join('');
     } else {
       this.endCurrentAnimation();
+      // randomly set idle animation
       this.currentAnimation = this.animationLoop.setAnimationTimeout(() => {
         this.idle();
       }, Math.random() * 10000)

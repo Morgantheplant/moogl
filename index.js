@@ -27,12 +27,8 @@ const initGame = () => {
     bodies: [player.body]
   });
 
+  player.game = renderGame;
+
 }
-
-
-
-
-
-
 
 document.addEventListener("DOMContentLoaded",initGame);

@@ -13,7 +13,6 @@ class CustomRender {
   }
   
   testing(){
-
     var render = Render.create({
       element: document.getElementById("entry"),
       engine: this.engine
@@ -35,7 +34,9 @@ class CustomRender {
     ]);
     World.add(this.engine.world, this.bodies)
     
+    // remove this later
     this.testing();
+
     this.engine.world.gravity.y = 0.08;
     this.animationLoop = options.animationLoop
     this.animationLoop.start();
@@ -57,6 +58,9 @@ class CustomRender {
     if(Array.isArray(bodies)){
       this.bodies = this.bodies.concat(bodies); 
     }
+  }
+  addBody(body){
+    World.addBody(this.engine.world, body); 
   }
 
 }
