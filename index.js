@@ -9,10 +9,9 @@ const initGame = () => {
   const player = new Player({
     node: document.createElement('div'),
     animationLoop: animationLoop,
-    size: 55,
+    size: 40,
     styles: {
       position: "absolute",
-      border: "1px solid blue",
       width: "96px",
       height: "96px",
       backgroundImage: "url('/static/images/idle.png')",

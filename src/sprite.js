@@ -4,7 +4,7 @@ class Sprite {
   constructor(options){
     this.currentStep = 0;
     this.isJumping = false;
-    this.direction = TYPES.RIGHT;
+    this.direction = DIRECTION.RIGHT;
     this.node = options.node;
     this.currentAnimation;
     this.currentAnimationType; 
@@ -12,14 +12,30 @@ class Sprite {
     this.spriteStep = this.spriteStep.bind(this);
     this.endCurrentAnimation = this.endCurrentAnimation.bind(this);
     this.startCurrentAnimation = this.startCurrentAnimation.bind(this);
+    this.idle = this.idle.bind(this);
   }
   endCurrentAnimation(){
     this.animationLoop.removeAnimation(this.currentAnimation);
-    this.node.style.backgroundPosition = 0;
+    this.returnToInitialFrame();
     this.currentAnimation = null;
     this.currentAnimationType = null;
     this.currentStep = 0;
-    this.isJumping = false;
+  }
+  returnToInitialFrame(){
+    // clean this up
+    this.node.style.transform =  "translate(-40%, -60%)";
+    let resetStep, resetImage;
+    if(this.direction === DIRECTION.RIGHT || this.isJumping){
+      resetImage = 'idle.png';
+    }
+    if(this.direction === DIRECTION.LEFT){
+      resetImage = 'moveLeft.png';
+    }
+    this.node.style.backgroundImage = ['url("/static/images/',resetImage,'")'].join('');
+    this.node.style.height = '96px';
+    this.node.style.width = '96px';
+    this.node.style.backgroundPosition = 0;
+    
   }
   startCurrentAnimation(sprite){
     if(!this.currentAnimationType || this.currentAnimationType.type !== sprite.type){
@@ -40,18 +56,26 @@ class Sprite {
       this.node.style.backgroundPosition = [position,'px'].join('');
     } else {
       this.endCurrentAnimation();
+      this.currentAnimation = this.animationLoop.setAnimationTimeout(() => {
+        this.idle();
+      }, Math.random() * 10000)
+      
     }
   }
   jump(){
     this.isJumping = true;
+    let delay = 100;
     if(this.direction === DIRECTION.RIGHT){
       this.startCurrentAnimation(SPRITE_DATA.JUMP_RIGHT)
-      return;
+      delay *= SPRITE_DATA.JUMP_RIGHT.steps - 1;
     }
     if(this.direction === DIRECTION.LEFT) {
       this.startCurrentAnimation(SPRITE_DATA.JUMP_LEFT)
-      return;
+      delay *= SPRITE_DATA.JUMP_LEFT.steps - 1;
     }
+    this.animationLoop.setAnimationTimeout(() => {
+      this.isJumping = false;
+    }, delay);
 
   }
   left(){
@@ -84,11 +108,17 @@ class Sprite {
       }
       if(this.direction === DIRECTION.LEFT) {
         this.startCurrentAnimation(SPRITE_DATA.SHOOT_LEFT)
+        this.node.style.transform =  "translate(-55%, -62%)";
         return;
       }       
 
     }
 
+  }
+  idle(){
+    if(this.direction === DIRECTION.RIGHT){
+      this.startCurrentAnimation(SPRITE_DATA.IDLE)
+    }
   }
 
 }

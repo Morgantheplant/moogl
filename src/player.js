@@ -38,17 +38,17 @@ class Player {
 
   jump(){
     this.sprite.jump();
-    Body.setVelocity(this.body, {x:this.body.velocity.x,y:-12});
+    Body.setVelocity(this.body, {x:this.body.velocity.x,y:-2});
   }
 
   left(){
      this.sprite.left();
-     Body.setVelocity(this.body, {x:-4,y:this.body.velocity.y});
+     Body.setVelocity(this.body, {x:-2,y:this.body.velocity.y});
   }
 
   right(){
     this.sprite.right();
-    Body.setVelocity(this.body, {x:+4,y:this.body.velocity.y});
+    Body.setVelocity(this.body, {x:2,y:this.body.velocity.y});
 
   }
 

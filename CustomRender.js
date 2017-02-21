@@ -36,7 +36,7 @@ class CustomRender {
     World.add(this.engine.world, this.bodies)
     
     this.testing();
-
+    this.engine.world.gravity.y = 0.08;
     this.animationLoop = options.animationLoop
     this.animationLoop.start();
     this.animationLoop.addAnimation(this.updateEngine);

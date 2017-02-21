@@ -17,6 +17,14 @@ export const DIRECTION = {
 }
 
 export const SPRITE_DATA = {
+   IDLE: {
+    type: TYPES.IDLE,
+    width: 96.21,
+    dir: -1,
+    img: 'idle.png',
+    steps: 14,
+    mask:[96.21,96.21]
+  },
   MOVE_RIGHT: {
     type: TYPES.MOVE_RIGHT,
     width: 96,
@@ -38,7 +46,7 @@ export const SPRITE_DATA = {
     width: 96,
     dir: -1,
     img: 'jumpRight.png',
-    steps: 13,
+    steps: 14,
     mask: [96,96]
   },
   JUMP_LEFT: {
@@ -51,35 +59,35 @@ export const SPRITE_DATA = {
   },
   JUMP_SHOOT_RIGHT: {
     type: TYPES.JUMP_SHOOT_RIGHT,
-    width: 185,
+    width: 180.57,
     dir: 1,
     img: 'jumpShootRight.png',
     steps: 7,
-    mask:[185, 100]
+    mask:[180.57, 100]
   },
    JUMP_SHOOT_LEFT: {
     type: TYPES.JUMP_SHOOT_LEFT,
-    width: 185,
+    width: 180.57,
     dir: -1,
     img: 'jumpShootLeft.png',
     steps:7,
-    mask:[185,100]
+    mask:[180.57,100]
   },
   SHOOT_RIGHT: {
     type: TYPES.SHOOT_RIGHT,
-    width: 168,
-    dir: 1,
+    width: 166.875,
+    dir: -1,
     img: 'shootRight.png',
     steps: 7,
-    mask:[168,96]
+    mask:[166.875,96]
   },
    SHOOT_LEFT: {
     type: TYPES.SHOOT_LEFT,
-    width: 168,
+    width: 166.875,
     dir: 1,
     img: 'shootLeft.png',
     steps: 7,
-    mask:[168,96]
+    mask:[166.875,96]
   }
  
 }
