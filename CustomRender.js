@@ -1,4 +1,5 @@
-import {World, Engine, Composite, Bodies, Render } from 'matter-js';
+import {World, Engine, Composite, Bodies, Render, Events } from 'matter-js';
+import { GAME_ITEM } from './src/constants';
 
 class CustomRender {
   constructor(options){
@@ -10,6 +11,7 @@ class CustomRender {
     this.updateBodies = this.updateBodies.bind(this);
     this.init(options);
     this.count = false;
+    this.addEvents();
   }
   
   testing(){
@@ -20,6 +22,21 @@ class CustomRender {
 
     Engine.run(this.engine);
     Render.run(render);
+  }
+
+  addEvents(){
+    Events.on(this.engine, 'collisionStart', function(event) {
+      var pairs = event.pairs;
+      // change object colours to show those starting a collision
+      for (var i = 0; i < pairs.length; i++) {
+          var pair = pairs[i];
+          const collision = (pair.bodyA.kind === GAME_ITEM.BULLET && pair.bodyB.kind === GAME_ITEM.PLAYER)
+          const collision2 = (pair.bodyB.kind === GAME_ITEM.BULLET && pair.bodyA.kind === GAME_ITEM.PLAYER)
+          if(collision || collision2){
+            console.log('yeow') 
+          }          
+      }
+  });
   }
 
   init(options){
@@ -61,6 +78,11 @@ class CustomRender {
   }
   addBody(body){
     World.addBody(this.engine.world, body); 
+  }
+
+  removeBody(body){
+    World.remove(this.engine.world, body)
+
   }
 
 }

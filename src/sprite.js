@@ -1,4 +1,4 @@
-import { DIRECTION, TYPES, KEYCODE, SPRITE_DATA } from './constants';
+import { DIRECTION, KEYCODE, SPRITE_DATA } from './constants';
 import { setStyles } from './utils';
 
 class Sprite {

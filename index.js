@@ -1,4 +1,4 @@
-import Player from './src/player';
+import Player from './src/Player';
 import CustomRender from './CustomRender';
 import AnimationLoop from 'simple_animation_loop';
 import { Engine } from 'matter-js';

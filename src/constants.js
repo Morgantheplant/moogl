@@ -1,5 +1,5 @@
 
-export const TYPES = {
+export const ACTION_TYPES = {
   IDLE: 'idle',
   MOVE_RIGHT: 'moveRight',
   MOVE_LEFT: 'moveLeft',
@@ -11,6 +11,12 @@ export const TYPES = {
   JUMP_SHOOT_LEFT: 'jumpShoopLeft'
 }
 
+export const GAME_ITEM = {
+  PLAYER: 'player',
+  BULLET: 'bullet',
+  ENEMY: 'enemy'
+}
+
 export const DIRECTION = {
   LEFT: 'left',
   RIGHT: 'right'
@@ -18,7 +24,7 @@ export const DIRECTION = {
 
 export const SPRITE_DATA = {
    IDLE: {
-    type: TYPES.IDLE,
+    type: ACTION_TYPES.IDLE,
     width: 96.21,
     dir: -1,
     img: 'idle.png',
@@ -26,7 +32,7 @@ export const SPRITE_DATA = {
     mask:[96.21,96.21]
   },
   MOVE_RIGHT: {
-    type: TYPES.MOVE_RIGHT,
+    type: ACTION_TYPES.MOVE_RIGHT,
     width: 96,
     dir: -1,
     img: 'moveRight.png',
@@ -34,7 +40,7 @@ export const SPRITE_DATA = {
     mask:[96,96]
   },
   MOVE_LEFT: {
-    type: TYPES.MOVE_LEFT,
+    type: ACTION_TYPES.MOVE_LEFT,
     width: 96,
     dir: 1,
     img: 'moveLeft.png',
@@ -42,7 +48,7 @@ export const SPRITE_DATA = {
     mask:[96,96]
   },
   JUMP_RIGHT: {
-    type: TYPES.JUMP_RIGHT,
+    type: ACTION_TYPES.JUMP_RIGHT,
     width: 96,
     dir: -1,
     img: 'jumpRight.png',
@@ -50,7 +56,7 @@ export const SPRITE_DATA = {
     mask: [96,96]
   },
   JUMP_LEFT: {
-    type: TYPES.JUMP_LEFT,
+    type: ACTION_TYPES.JUMP_LEFT,
     width: 96,
     dir: 1,
     img: 'jumpLeft.png',
@@ -58,7 +64,7 @@ export const SPRITE_DATA = {
     mask:[96,96]
   },
   JUMP_SHOOT_RIGHT: {
-    type: TYPES.JUMP_SHOOT_RIGHT,
+    type: ACTION_TYPES.JUMP_SHOOT_RIGHT,
     width: 180.57,
     dir: 1,
     img: 'jumpShootRight.png',
@@ -66,7 +72,7 @@ export const SPRITE_DATA = {
     mask:[180.57, 100]
   },
    JUMP_SHOOT_LEFT: {
-    type: TYPES.JUMP_SHOOT_LEFT,
+    type: ACTION_TYPES.JUMP_SHOOT_LEFT,
     width: 180.57,
     dir: -1,
     img: 'jumpShootLeft.png',
@@ -74,7 +80,7 @@ export const SPRITE_DATA = {
     mask:[180.57,100]
   },
   SHOOT_RIGHT: {
-    type: TYPES.SHOOT_RIGHT,
+    type: ACTION_TYPES.SHOOT_RIGHT,
     width: 166.875,
     dir: -1,
     img: 'shootRight.png',
@@ -82,7 +88,7 @@ export const SPRITE_DATA = {
     mask:[166.875,96]
   },
    SHOOT_LEFT: {
-    type: TYPES.SHOOT_LEFT,
+    type: ACTION_TYPES.SHOOT_LEFT,
     width: 166.875,
     dir: 1,
     img: 'shootLeft.png',
@@ -98,4 +104,21 @@ export const KEYCODE = {
   LEFT: 37,
   RIGHT: 39,
   SPACE: 32
+}
+
+export const BULLETS = {
+  REGULAR: {
+    styles: {
+      position: 'absolute',
+      background: 'rgba(255, 255, 255, 0.85)',
+      borderRadius: '50%',
+      height: '6px',
+      width: '6px',
+      boxShadow: 'white 0px 0px 10px',
+      top: '100px',
+      border: '2px solid rgb(96, 128, 192)',
+      left: '100px'
+    },
+    shootingRate: 1000
+  }
 }
