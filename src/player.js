@@ -10,7 +10,7 @@ class Player extends Node {
   constructor(options){
     super(options);
     this.health = options.health || 50;
-    this.size = options.size || 50;
+    this.size = options.size || 60;
     this.body = this.createPhysicsBody(options);
     this.sprite = this.createSpriteAnimations(options);
     this.addListeners();
@@ -27,7 +27,7 @@ class Player extends Node {
       });
     }
     Body.set(body, {
-      frictionAir:0.0002,
+      frictionAir:0.0001,
       frictionStatic: 0.001
 
     })
@@ -47,12 +47,12 @@ class Player extends Node {
 
   left(){
     this.sprite.left();
-    Body.setVelocity(this.body, {x:-3,y:this.body.velocity.y});
+    Body.setVelocity(this.body, {x:-4,y:this.body.velocity.y});
   }
 
   right(){
     this.sprite.right();
-    Body.setVelocity(this.body, {x:3,y:this.body.velocity.y});
+    Body.setVelocity(this.body, {x:4,y:this.body.velocity.y});
 
   }
 

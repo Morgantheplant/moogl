@@ -49,20 +49,19 @@ class CustomRender {
 
   init(options){
     const floor =  Bodies.rectangle(400, 600, 800, 50, { isStatic: true });
-    floor.kind = GAME_ITEM.GROUND;
     const right =  Bodies.rectangle(800, 300, 50, 600, { isStatic: true });
-    const left = Bodies.rectangle(0, 300, 50, 600, { isStatic: true })
-    this.bodies = this.bodies.concat([ floor, right, left ]);
-        // Bodies.rectangle(400, 0, 800, 50, { isStatic: true }),
-        //right
+    const left = Bodies.rectangle(0, 300, 50, 600, { isStatic: true });
+    const top = Bodies.rectangle(400, 0, 800, 50, { isStatic: true });
+    this.bodies = this.bodies.concat([ floor, right, left, top ]);
+    floor.kind = GAME_ITEM.GROUND;
        
    
     World.add(this.engine.world, this.bodies)
     
     // remove this later
-   // this.testing();
+    this.testing();
 
-    this.engine.world.gravity.y = 0.08;
+    this.engine.world.gravity.y = 0.09;
     this.animationLoop = options.animationLoop
     this.animationLoop.start();
     this.animationLoop.addAnimation(this.updateEngine);

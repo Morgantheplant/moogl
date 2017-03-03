@@ -1,11 +1,11 @@
 export const VECTORMAN = {
-  size: 40,
+  size: 50,
     styles: {
       position: "absolute",
       width: "96px",
       height: "96px",
       backgroundImage: "url('/static/images/idle.png')",
-      transform: "translate(-40%, -60%)"
+      transform: "translate(-50%, -65%)"
     }
 };
 

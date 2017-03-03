@@ -1,7 +1,21 @@
 html {
   box-sizing: border-box;
-  background: grey;
 }
 *, *:before, *:after {
   box-sizing: inherit;
+}
+body{
+  background: black;
+}
+.bg, .frame{
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+.bg{
+  background-image: url('/static/images/background.png');
+  background-size:cover;
+}
+.frame{ 
+  background: rgba(0,0,0,0.8);
 }

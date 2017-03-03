@@ -32,9 +32,14 @@ function bulletEnemyAction(body1, body2){
 
 function playerGroundAction(body1,body2){
   if(body1.player && body1.player.sprite){
+    body1.player.sprite.land();
     body1.player.sprite.isJumping = false
-  } else if(body2.player && body2.player.sprite){
+    return;
+  }
+  if(body2.player && body2.player.sprite){
+    body2.player.sprite.land();
     body2.player.sprite.isJumping = false
+    return;
   }
 }
 
@@ -70,7 +75,7 @@ export const SPRITE_DATA = {
     img: 'idle.png',
     steps: 14,
     mask:[96.21,96.21],
-    offset:[-40, -60]
+    offset:[-55, -65]
   },
   IDLE_LEFT:{
     type: ACTION_TYPES.IDLE_LEFT,
@@ -79,7 +84,7 @@ export const SPRITE_DATA = {
     img: 'idleLeft.png',
     steps: 14,
     mask:[96.21,96.21],
-    offset:[-40, -60]
+    offset:[-55, -65]
   },
   MOVE_RIGHT: {
     type: ACTION_TYPES.MOVE_RIGHT,
@@ -88,7 +93,7 @@ export const SPRITE_DATA = {
     img: 'moveRight.png',
     steps: 14,
     mask:[96,96],
-    offset:[-40, -60],
+    offset:[-55, -65],
   },
   MOVE_LEFT: {
     type: ACTION_TYPES.MOVE_LEFT,
@@ -97,25 +102,25 @@ export const SPRITE_DATA = {
     img: 'moveLeft.png',
     steps: 14,
     mask:[96,96],
-    offset:[-40, -60],
+    offset:[-55, -65],
   },
   JUMP_RIGHT: {
     type: ACTION_TYPES.JUMP_RIGHT,
     width: 96,
     dir: -1,
     img: 'jumpRight.png',
-    steps: 14,
+    steps: 8,
     mask: [96,96],
-    offset:[-40, -60],
+    offset:[-55, -65],
   },
   JUMP_LEFT: {
     type: ACTION_TYPES.JUMP_LEFT,
     width: 96,
     dir: 1,
     img: 'jumpLeft.png',
-    steps: 13,
+    steps: 8,
     mask:[96,96],
-    offset:[-40, -60],
+    offset:[-55, -65],
   },
   JUMP_SHOOT_RIGHT: {
     type: ACTION_TYPES.JUMP_SHOOT_RIGHT,
@@ -124,7 +129,7 @@ export const SPRITE_DATA = {
     img: 'jumpShootRight.png',
     steps: 7,
     mask:[180.57, 100],
-    offset:[-40, -60],
+    offset:[-55, -65],
   },
    JUMP_SHOOT_LEFT: {
     type: ACTION_TYPES.JUMP_SHOOT_LEFT,
@@ -133,7 +138,7 @@ export const SPRITE_DATA = {
     img: 'jumpShootLeft.png',
     steps:7,
     mask:[180.57,100],
-    offset:[-40, -60],
+    offset:[-50, -65],
   },
   SHOOT_RIGHT: {
     type: ACTION_TYPES.SHOOT_RIGHT,
@@ -142,7 +147,7 @@ export const SPRITE_DATA = {
     img: 'shootRight.png',
     steps: 7,
     mask:[166.875,96],
-    offset:[-40, -60],
+    offset:[-50, -65],
   },
    SHOOT_LEFT: {
     type: ACTION_TYPES.SHOOT_LEFT,
@@ -151,7 +156,7 @@ export const SPRITE_DATA = {
     img: 'shootLeft.png',
     steps: 7,
     mask:[166.875,96],
-    offset:[-55, -62],
+    offset:[-63, -65],
   },
   IDLE_JUMP_RIGHT: {
     type: ACTION_TYPES.IDLE_JUMP_RIGHT,
@@ -160,7 +165,7 @@ export const SPRITE_DATA = {
     img:'idleJumpRight.png',
     mask: [96,96],
     steps:1,
-    offset:[-40,-60]
+    offset:[-50,-65]
   },
   IDLE_JUMP_LEFT: {
     type: ACTION_TYPES.IDLE_JUMP_LEFT,
@@ -169,9 +174,28 @@ export const SPRITE_DATA = {
     img:'idleJumpLeft.png',
     mask: [96,96],
     steps:1,
-    offset:[-40,-60]
+    offset:[-50,-65]
+  },
+  LAND_RIGHT: {
+    type: ACTION_TYPES.JUMP_RIGHT,
+    width: 96,
+    dir: -1,
+    img: 'jumpRight.png',
+    steps: 14,
+    beginStep:8,
+    mask: [96,96],
+    offset:[-50, -65],
+  },
+  LAND_LEFT: {
+    type: ACTION_TYPES.JUMP_LEFT,
+    width: 96,
+    dir: 1,
+    img: 'jumpLeft.png',
+    steps: 13,
+    beginStep:8,
+    mask:[96,96],
+    offset:[-50, -65],
   }
- 
 }
 
 export const KEYCODE = {
@@ -195,6 +219,6 @@ export const BULLETS = {
       border: '2px solid rgb(96, 128, 192)',
       left: '100px'
     },
-    shootingRate: 1000
+    shootingRate: 200
   }
 }
