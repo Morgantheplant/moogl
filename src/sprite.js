@@ -23,18 +23,26 @@ class Sprite {
     this.currentStep = 0;
   }
   returnToInitialFrame(){
-    // clean this up
-    this.node.style.transform =  "translate(-40%, -60%)";
-    let resetStep, resetImage;
-    if(this.direction === DIRECTION.RIGHT){
-      resetImage = 'idle.png';
+   let idle;
+    if(this.isJumping){
+      if(this.direction === DIRECTION.RIGHT){
+        idle = SPRITE_DATA.IDLE_JUMP_RIGHT;
+      } else {
+        idle = SPRITE_DATA.IDLE_JUMP_LEFT;
+      }
+    } else {
+      if(this.direction === DIRECTION.RIGHT){
+        idle = SPRITE_DATA.IDLE;
+      } else {
+        idle = SPRITE_DATA.IDLE_LEFT;
+      }
     }
-    if(this.direction === DIRECTION.LEFT){
-      resetImage = 'moveLeft.png';
-    }
-    this.node.style.backgroundImage = ['url("/static/images/',resetImage,'")'].join('');
-    this.node.style.height = '96px';
-    this.node.style.width = '96px';
+    
+    const {img, offset, mask } = idle;
+    this.node.style.backgroundImage = `url("/static/images/${img}`;
+    this.node.style.transform =  `translate(${offset[0]}%,${offset[1]}%)`;
+    this.node.style.height = `${mask[1]}px`;
+    this.node.style.width = `${mask[0]}px`;
     this.node.style.backgroundPosition = 0;
     
   }
@@ -43,9 +51,10 @@ class Sprite {
       this.endCurrentAnimation();
       this.currentAnimationType = sprite;
       this.currentStep = 0;
-      this.node.style.backgroundImage = ['url("/static/images/',sprite.img,'")'].join("");
-      this.node.style.width = [sprite.mask[0],"px"].join("");
-      this.node.style.height = [sprite.mask[1],"px"].join("");
+      this.node.style.backgroundImage = `url("/static/images/${sprite.img}`;
+      this.node.style.transform =  `translate(${sprite.offset[0]}%,${sprite.offset[1]}%)`;
+      this.node.style.height = `${sprite.mask[1]}px`;
+      this.node.style.width = `${sprite.mask[0]}px`;
       this.currentAnimation = this.animationLoop.setAnimationInterval(this.spriteStep, 100);
     }
   }
@@ -54,7 +63,7 @@ class Sprite {
     if(sprite && this.currentStep < sprite.steps){
       this.currentStep++;
       let position = sprite.dir * sprite.width * this.currentStep;
-      this.node.style.backgroundPosition = [position,'px'].join('');
+      this.node.style.backgroundPosition = `${position}px`;
     } else {
       this.endCurrentAnimation();
       // randomly set idle animation
@@ -75,10 +84,6 @@ class Sprite {
       this.startCurrentAnimation(SPRITE_DATA.JUMP_LEFT)
       delay *= SPRITE_DATA.JUMP_LEFT.steps - 1;
     }
-    this.animationLoop.setAnimationTimeout(() => {
-      this.isJumping = false;
-    }, delay);
-
   }
   left(){
     this.direction = DIRECTION.LEFT;
@@ -110,7 +115,7 @@ class Sprite {
       }
       if(this.direction === DIRECTION.LEFT) {
         this.startCurrentAnimation(SPRITE_DATA.SHOOT_LEFT)
-        this.node.style.transform =  "translate(-55%, -62%)";
+        const { offset }  = SPRITE_DATA.SHOOT_LEFT
         return;
       }       
 

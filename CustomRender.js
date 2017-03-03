@@ -1,16 +1,19 @@
 import {World, Engine, Composite, Bodies, Render, Events } from 'matter-js';
-import { GAME_ITEM } from './src/constants';
+import { GAME_ITEM, COLLSION_MAP } from './src/constants';
+import Enemy from './src/Enemy';
+import { ALIEN } from './constants';
 
 class CustomRender {
   constructor(options){
     this.entry = options.entry;
     this.engine = options.engine;
     this.bodies = options.bodies || [];
-    this.entry.appendChild(options.player.node);
     this.updateEngine = this.updateEngine.bind(this);
     this.updateBodies = this.updateBodies.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.addEnemies = this.addEnemies.bind(this);
     this.init(options);
-    this.count = false;
+    this.addPlayer(options);
     this.addEvents();
   }
   
@@ -30,35 +33,41 @@ class CustomRender {
       // change object colours to show those starting a collision
       for (var i = 0; i < pairs.length; i++) {
           var pair = pairs[i];
-          const collision = (pair.bodyA.kind === GAME_ITEM.BULLET && pair.bodyB.kind === GAME_ITEM.PLAYER)
-          const collision2 = (pair.bodyB.kind === GAME_ITEM.BULLET && pair.bodyA.kind === GAME_ITEM.PLAYER)
-          if(collision || collision2){
-            console.log('yeow') 
-          }          
+          const action = COLLSION_MAP[pair.bodyA.kind + pair.bodyB.kind];
+          if(action){
+            action(pair.bodyA, pair.bodyB);
+          }
       }
   });
   }
 
+  addPlayer({player}){
+    this.addItem(player);
+    this.player = player;
+    this.player.game = this;
+  }
+
   init(options){
-    this.bodies = this.bodies.concat([
-        Bodies.rectangle(400, 0, 800, 50, { isStatic: true }),
-        // floor
-        Bodies.rectangle(400, 600, 800, 50, { isStatic: true }),
+    const floor =  Bodies.rectangle(400, 600, 800, 50, { isStatic: true });
+    floor.kind = GAME_ITEM.GROUND;
+    const right =  Bodies.rectangle(800, 300, 50, 600, { isStatic: true });
+    const left = Bodies.rectangle(0, 300, 50, 600, { isStatic: true })
+    this.bodies = this.bodies.concat([ floor, right, left ]);
+        // Bodies.rectangle(400, 0, 800, 50, { isStatic: true }),
         //right
-        Bodies.rectangle(800, 300, 50, 600, { isStatic: true }),
-        // left
-        Bodies.rectangle(0, 300, 50, 600, { isStatic: true }) 
-    ]);
+       
+   
     World.add(this.engine.world, this.bodies)
     
     // remove this later
-    this.testing();
+   // this.testing();
 
     this.engine.world.gravity.y = 0.08;
     this.animationLoop = options.animationLoop
     this.animationLoop.start();
     this.animationLoop.addAnimation(this.updateEngine);
     this.animationLoop.addAnimation(this.updateBodies);
+    this.addEnemies();
   }
   updateEngine(){
     Engine.update(this.engine, 1000 / 60);
@@ -76,15 +85,26 @@ class CustomRender {
       this.bodies = this.bodies.concat(bodies); 
     }
   }
-  addBody(body){
+  addItem({ node, body }){
+    this.entry.appendChild(node);
     World.addBody(this.engine.world, body); 
   }
-
-  removeBody(body){
+  removeItem({body, node}){
     World.remove(this.engine.world, body)
-
+    this.entry.removeChild(node);
   }
+  addEnemies(){
+    const enemy = new Enemy(Object.assign({}, {
+      node: document.createElement('div'),
+      game: this,
+      animationLoop: this.animationLoop  
+    }, ALIEN));
+    this.addItem(enemy);
 
+    this.animationLoop.setAnimationTimeout(()=>{
+      this.addEnemies()
+    }, Math.max(Math.random()*4000,500))
+  }
 }
 
 export default CustomRender;

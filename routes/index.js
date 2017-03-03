@@ -6,9 +6,4 @@ routes.get('/', function(req, res) {
 });
 
 
-// routes.get('/*', function(req, res) {
-//   res.render('index', {title: "home"});
-// });
-
-
 module.exports = routes;

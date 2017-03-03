@@ -20,13 +20,17 @@ class Player extends Node {
     const body = Bodies.circle(100,100, options.size/2);
     body.friction = 0.08;
     body.kind = GAME_ITEM.PLAYER;
-    console.log(body.kind, 'thi sis a player')
     body.updateSelf = () => {
        setStyles(this.node, {
         top:[Math.round(body.position.y), "px"].join(""),
         left:[Math.round(body.position.x), "px"].join("")
       });
     }
+    Body.set(body, {
+      frictionAir:0.0002,
+      frictionStatic: 0.001
+
+    })
     body.player = this;
     return body;
   }
@@ -43,12 +47,12 @@ class Player extends Node {
 
   left(){
     this.sprite.left();
-    Body.setVelocity(this.body, {x:-2,y:this.body.velocity.y});
+    Body.setVelocity(this.body, {x:-3,y:this.body.velocity.y});
   }
 
   right(){
     this.sprite.right();
-    Body.setVelocity(this.body, {x:2,y:this.body.velocity.y});
+    Body.setVelocity(this.body, {x:3,y:this.body.velocity.y});
 
   }
 
@@ -70,27 +74,23 @@ class Player extends Node {
     const bulletType = BULLETS.REGULAR;
     const bullet = new Bullet({
       styles: bulletType.styles,
+      game: this.game,
       position: this.body.position,
       direction: this.direction,
       isJumping: this.sprite.isJumping
     });
-    this.node.parentElement.appendChild(bullet.node);
-    this.game.addBody(bullet.body);
-    const x = this.sprite.direction === DIRECTION.RIGHT ? 12 : -12;
+   
+    this.game.addItem(bullet);
+    const x = this.sprite.direction === DIRECTION.RIGHT ? 15 : -15;
     Body.setVelocity(bullet.body, {x:x, y:bullet.body.velocity.y});
     this.animationLoop.setAnimationTimeout(() => {
-     // this.destroyBullet(bullet);
+      bullet && bullet.removeSelf();
     }, delay || 1000);
     // control shooting rate 
     this.shootingDisabled = true;
-    this.animationLoop.setAnimationTimeout(()=>{
+    this.animationLoop.setAnimationTimeout(() => {
        this.shootingDisabled = false;
     }, bulletType.shootingRate);
-  }
-
-  destroyBullet(bullet){
-    this.game.removeBody(bullet.body);
-    this.node.parentElement.removeChild(bullet.node); 
   }
 
   addListeners(){
