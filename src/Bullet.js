@@ -1,7 +1,7 @@
 import { Bodies, Body } from 'matter-js';
 import { setStyles } from './utils';
 import Node from './Node';
-import { GAME_ITEM } from './constants';
+import { GAME_ITEM } from '../constants';
 
 class Bullet extends Node {
   constructor(options){

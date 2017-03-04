@@ -1,9 +1,8 @@
 import { Bodies, Body } from 'matter-js';
-import { KEYCODE } from './constants';
 import Sprite from './Sprite';
 import { setStyles } from './utils';
 import Bullet from './Bullet';
-import {DIRECTION, BULLETS, GAME_ITEM} from './constants';
+import {DIRECTION, BULLETS, GAME_ITEM, KEYCODE } from '../constants';
 import Node from './Node';
 
 class Player extends Node {
@@ -36,7 +35,8 @@ class Player extends Node {
   }
 
   createSpriteAnimations(options){
-    const sprite = new Sprite(options);
+    const settings = Object.assign(options, {node:this.node})
+    const sprite = new Sprite(settings);
     return sprite;
   }
 
@@ -97,15 +97,19 @@ class Player extends Node {
     document.addEventListener('keydown',(e) => {
       switch (e.keyCode){
         case KEYCODE.UP:
+          e.preventDefault()
           this.jump();
           break;
         case KEYCODE.LEFT:
+          e.preventDefault()
           this.left();
           break;
         case KEYCODE.RIGHT:
+          e.preventDefault()
           this.right();
           break; 
         case KEYCODE.SPACE:
+          e.preventDefault()
           this.shoot()
           break;       
       }

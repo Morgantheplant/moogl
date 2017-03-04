@@ -1,6 +1,6 @@
 import Node from './Node';
 import { Bodies } from 'matter-js';
-import { GAME_ITEM } from './constants';
+import { GAME_ITEM } from '../constants';
 import { setStyles } from './utils';
 
 class Enemy extends Node {
