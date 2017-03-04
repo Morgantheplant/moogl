@@ -20,10 +20,19 @@ class Player extends Node {
     body.friction = 0.08;
     body.kind = GAME_ITEM.PLAYER;
     body.updateSelf = () => {
-       setStyles(this.node, {
-        top:[Math.round(body.position.y), "px"].join(""),
-        left:[Math.round(body.position.x), "px"].join("")
+      const transform =  [
+        'translate(',
+          Math.round(body.position.x), "px,",
+          Math.round(body.position.y), "px",
+        ')'].join("");
+
+      setStyles(this.node, {
+        webkitTransform: transform,
+        MozTransform: transform,
+        msTransform: transform,
+        transform: transform
       });
+
     }
     Body.set(body, {
       frictionAir:0.0001,

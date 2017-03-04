@@ -21,8 +21,11 @@ class Bullet extends Node {
     body.kind = GAME_ITEM.BULLET;
     body.updateSelf = () => {
        setStyles(this.node, {
-        top:[Math.round(body.position.y)+5, "px"].join(""),
-        left:[Math.round(body.position.x)+5, "px"].join("")
+        webkitTransform: [
+          'translate(',
+            Math.round(body.position.x)+5, "px,",
+            Math.round(body.position.y)+5, "px",
+          ')'].join("")
       });
     }
 

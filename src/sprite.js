@@ -27,7 +27,8 @@ class Sprite {
     let idle = this.idleStatic();
     const {img, offset, mask } = idle;
     this.node.style.backgroundImage = `url("/static/images/${img}`;
-    this.node.style.transform =  `translate(${offset[0]}%,${offset[1]}%)`;
+    this.node.style.left = `${offset[0]}px`;
+    this.node.style.top =  `${offset[1]}px`;
     this.node.style.height = `${mask[1]}px`;
     this.node.style.width = `${mask[0]}px`;
     this.node.style.backgroundPosition = 0;
@@ -39,7 +40,9 @@ class Sprite {
       this.currentAnimationType = sprite;
       this.currentStep = sprite.beginStep || 0;
       this.node.style.backgroundImage = `url("/static/images/${sprite.img}`;
-      this.node.style.transform =  `translate(${sprite.offset[0]}%,${sprite.offset[1]}%)`;
+      this.node.style.left = `${sprite.offset[0]}px`;
+      this.node.style.top =  `${sprite.offset[1]}px`;
+      //this.node.style.transform =  `translate(${sprite.offset[0]}%,${sprite.offset[1]}%)`;
       this.node.style.height = `${sprite.mask[1]}px`;
       this.node.style.width = `${sprite.mask[0]}px`;
       this.currentAnimation = this.animationLoop.setAnimationInterval(this.spriteStep, 100);
