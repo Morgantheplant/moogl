@@ -13,10 +13,19 @@ class Enemy extends Node {
     body.friction = 0.08;
     body.kind = GAME_ITEM.ENEMY;
     body.updateSelf = () => {
+      const transform =  [
+        'translate(',
+          Math.round(body.position.x), "px,",
+          Math.round(body.position.y), "px",
+        ')'].join("");
+
       setStyles(this.node, {
-        top:[Math.round(body.position.y), "px"].join(""),
-        left:[Math.round(body.position.x), "px"].join("")
+        webkitTransform: transform,
+        MozTransform: transform,
+        msTransform: transform,
+        transform: transform
       });
+
     }
     body.player = this;
     return body;

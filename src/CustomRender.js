@@ -19,13 +19,15 @@ class CustomRender {
   }
   
   testing(){
-    var render = Render.create({
+    const render = Render.create({
       element: document.getElementById("entry"),
       engine: this.engine
     });
-
     Engine.run(this.engine);
     Render.run(render);
+    const canvas = document.getElementsByTagName('canvas')[0];
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
   }
 
   addEvents(){
@@ -49,18 +51,22 @@ class CustomRender {
   }
 
   init(options){
-    const floor =  Bodies.rectangle(400, 600, 800, 50, { isStatic: true });
-    const right =  Bodies.rectangle(800, 300, 50, 600, { isStatic: true });
-    const left = Bodies.rectangle(0, 300, 50, 600, { isStatic: true });
-    const top = Bodies.rectangle(400, 0, 800, 50, { isStatic: true });
-    this.bodies = this.bodies.concat([ floor, right, left, top ]);
+    const height = window.innerHeight;
+    const width = window.innerWidth;
+    const floor =  Bodies.rectangle(width/2, height, width, 77, { isStatic: true });
+    const right =  Bodies.rectangle(width, height/2, 50, height, { isStatic: true });
+    const left = Bodies.rectangle(0, height/2, 50, height, { isStatic: true });
+    const top = Bodies.rectangle(width/2, 0, width, 50, { isStatic: true });
+    const logoRect = document.getElementsByClassName('logo')[0].getBoundingClientRect();
+    const logo =  Bodies.rectangle(logoRect.left + 265/2, logoRect.top + 109 + 106/2, 265, 106, { isStatic: true });
+    this.bodies = this.bodies.concat([ floor, right, left, top, logo ]);
     floor.kind = GAME_ITEM.GROUND;
-       
+    
    
     World.add(this.engine.world, this.bodies)
     
     // remove this later
-    this.testing();
+    //this.testing();
 
     this.engine.world.gravity.y = 0.09;
     this.animationLoop = options.animationLoop

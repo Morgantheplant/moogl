@@ -36,7 +36,7 @@ class Player extends Node {
     }
     Body.set(body, {
       frictionAir:0.0001,
-      frictionStatic: 0.001
+      friction: 0.005
 
     })
     body.player = this;
@@ -56,12 +56,12 @@ class Player extends Node {
 
   left(){
     this.sprite.left();
-    Body.setVelocity(this.body, {x:-4,y:this.body.velocity.y});
+    Body.setVelocity(this.body, {x:-2 ,y:this.body.velocity.y});
   }
 
   right(){
     this.sprite.right();
-    Body.setVelocity(this.body, {x:4,y:this.body.velocity.y});
+    Body.setVelocity(this.body, {x:2,y:this.body.velocity.y});
 
   }
 

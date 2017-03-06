@@ -1,15 +1,16 @@
 import Player from './src/Player';
-import CustomRender from './CustomRender';
+import CustomRender from './src/CustomRender';
 import AnimationLoop from 'simple_animation_loop';
 import { Engine } from 'matter-js';
-import { VECTORMAN } from './constants';
+import { VECTORMAN } from './constants/players';
 
 const initGame = () => {
-
+  
+  // single animation loop passed into each body in the game
+  // possibly refactor into singleton 
   const animationLoop = new AnimationLoop();
-
   const player = new Player(Object.assign({}, { 
-    node: document.createElement('div'),
+    //node: document.createElement('div'),
     animationLoop: animationLoop  
   }, VECTORMAN));
 
@@ -19,8 +20,6 @@ const initGame = () => {
     animationLoop: animationLoop,
     player: player
   });
-
-  player.game = renderGame;
 
 }
 
