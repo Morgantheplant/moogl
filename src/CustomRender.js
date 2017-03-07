@@ -1,8 +1,7 @@
 import {World, Engine, Composite, Bodies, Render, Events } from 'matter-js';
-import { GAME_ITEM } from '../constants'; 
+import { GAME_ITEM, ALIEN } from '../constants'; 
 import { COLLSION_MAP } from '../collisions';
 import Enemy from './Enemy';
-import { ALIEN } from '../constants/enemies';
 
 class CustomRender {
   constructor(options){

@@ -9,37 +9,16 @@ class Player extends Node {
   constructor(options){
     super(options);
     this.health = options.health || 50;
-    this.size = options.size || 60;
-    this.body = this.createPhysicsBody(options);
     this.sprite = this.createSpriteAnimations(options);
     this.addListeners();
   }
-
-  createPhysicsBody(options){
-    const body = Bodies.circle(100,100, options.size/2);
-    body.friction = 0.08;
+  getBodyBase(options){
+    const body = Bodies.circle(100,100, this.size/2);
     body.kind = GAME_ITEM.PLAYER;
-    body.updateSelf = () => {
-      const transform =  [
-        'translate(',
-          Math.round(body.position.x), "px,",
-          Math.round(body.position.y), "px",
-        ')'].join("");
-
-      setStyles(this.node, {
-        webkitTransform: transform,
-        MozTransform: transform,
-        msTransform: transform,
-        transform: transform
-      });
-
-    }
     Body.set(body, {
       frictionAir:0.0001,
       friction: 0.005
-
-    })
-    body.player = this;
+    });
     return body;
   }
 
@@ -62,7 +41,6 @@ class Player extends Node {
   right(){
     this.sprite.right();
     Body.setVelocity(this.body, {x:2,y:this.body.velocity.y});
-
   }
 
   shoot(){
@@ -78,7 +56,7 @@ class Player extends Node {
       }
     }
   }
-
+  
   createBullet(delay){
     const bulletType = BULLETS.REGULAR;
     const bullet = new Bullet({

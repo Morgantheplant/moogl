@@ -1,3 +1,6 @@
+export {BULLETS} from './bullets';
+export {VECTORMAN} from './players';
+export {ALIEN} from './enemies';
 
 export const ACTION_TYPES = {
   IDLE: 'idle',
@@ -32,23 +35,6 @@ export const KEYCODE = {
   LEFT: 37,
   RIGHT: 39,
   SPACE: 32
-}
-
-export const BULLETS = {
-  REGULAR: {
-    styles: {
-      position: 'absolute',
-      background: 'white',//rgba(255, 255, 255, 0.85)',
-      borderRadius: '50%',
-      height: '8px',
-      width: '8px',
-      boxShadow: 'white 0px 0px 10px',
-      top: '-8px',
-      border: '1px solid blue',//2px solid rgb(96, 128, 192)',
-      left: '-8px'
-    },
-    shootingRate: 200
-  }
 }
 
 export const SPRITE_DATA = {
