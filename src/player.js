@@ -23,7 +23,7 @@ class Player extends Node {
   }
 
   createSpriteAnimations(options){
-    const settings = Object.assign(options, {node:this.node})
+    const settings = Object.assign({}, options, {node:this.node})
     const sprite = new Sprite(settings);
     return sprite;
   }
@@ -52,7 +52,7 @@ class Player extends Node {
           this.createBullet()
         }, 500);
       } else {
-        this.createBullet(500);
+        this.createBullet();
       }
     }
   }
@@ -61,6 +61,7 @@ class Player extends Node {
     const bulletType = BULLETS.REGULAR;
     const bullet = new Bullet({
       styles: bulletType.styles,
+      animationLoop: this.animationLoop,
       game: this.game,
       position: this.body.position,
       direction: this.direction,
@@ -71,7 +72,7 @@ class Player extends Node {
     const x = this.sprite.direction === DIRECTION.RIGHT ? 15 : -15;
     Body.setVelocity(bullet.body, {x:x, y:bullet.body.velocity.y});
     this.animationLoop.setAnimationTimeout(() => {
-      bullet && bullet.removeSelf();
+      bullet && bullet.removeBullet();
     }, delay || 1000);
     // control shooting rate 
     this.shootingDisabled = true;

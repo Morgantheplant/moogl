@@ -1,4 +1,4 @@
-import { setStyles } from './utils';
+ import { setStyles, setTranslation } from './utils';
 
 class Node {
   constructor(options){
@@ -13,6 +13,7 @@ class Node {
     setStyles(this.node, options.styles);
   }
   removeSelf(){
+    console.log('removing from game')
     this.game && this.game.removeItem(this);
     this.game = null;
     this.node = null;
@@ -22,17 +23,7 @@ class Node {
   }
   createPhysicsBody(body){
     body.updateSelf = () => {
-      const transform =  [
-        'translate(',
-          Math.round(body.position.x), "px,",
-          Math.round(body.position.y), "px",
-        ')'].join("");
-      setStyles(this.node, {
-        webkitTransform: transform,
-        MozTransform: transform,
-        msTransform: transform,
-        transform: transform
-      });
+      setTranslation(this.node, body.position.x, body.position.y);
     }
     body.player = this;
     return body;

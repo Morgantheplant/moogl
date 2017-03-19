@@ -1,7 +1,7 @@
 import { GAME_ITEM } from '../constants';
 
 function playerEnemyAction(body1, body2){
-
+   body1.player.game.scoreBoard.loseHealth();
 }
 
 function bulletEnemyAction(body1, body2){

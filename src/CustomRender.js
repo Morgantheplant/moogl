@@ -1,6 +1,7 @@
 import {World, Engine, Composite, Bodies, Render, Events } from 'matter-js';
 import { GAME_ITEM, ALIEN } from '../constants'; 
 import { COLLSION_MAP } from '../collisions';
+import ScoreBoard from './ScoreBoard';
 import Enemy from './Enemy';
 
 class CustomRender {
@@ -73,6 +74,7 @@ class CustomRender {
     this.animationLoop.addAnimation(this.updateEngine);
     this.animationLoop.addAnimation(this.updateBodies);
     this.addEnemies();
+    this.addScoreboard();
   }
   updateEngine(){
     Engine.update(this.engine, 1000 / 60);
@@ -94,9 +96,16 @@ class CustomRender {
     this.entry.appendChild(node);
     World.addBody(this.engine.world, body); 
   }
+
+  addScoreboard(){
+    this.scoreBoard = new ScoreBoard({entry: this.entry});
+  }
+
   removeItem({body, node}){
-    World.remove(this.engine.world, body)
-    this.entry.removeChild(node);
+    if(body && node){
+      World.remove(this.engine.world, body);
+      this.entry.removeChild(node);
+    }
   }
   addEnemies(){
     const enemy = new Enemy(Object.assign({}, {
