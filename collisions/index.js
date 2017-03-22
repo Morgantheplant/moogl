@@ -12,12 +12,12 @@ function bulletEnemyAction(body1, body2){
 function playerGroundAction(body1,body2){
   if(body1.player && body1.player.sprite){
     body1.player.sprite.land();
-    body1.player.sprite.isJumping = false
+    body1.player.sprite.isJumping = false; 
     return;
   }
   if(body2.player && body2.player.sprite){
     body2.player.sprite.land();
-    body2.player.sprite.isJumping = false
+    body2.player.sprite.isJumping = false;
     return;
   }
 }

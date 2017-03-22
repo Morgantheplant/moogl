@@ -110,7 +110,7 @@ export const SPRITE_DATA = {
     offset:[-50,-60]
   },
   LAND_RIGHT: {
-    type: ACTION_TYPES.JUMP_RIGHT,
+    type: ACTION_TYPES.LAND_RIGHT,
     width: 96,
     dir: -1,
     img: 'jumpRight.png',
@@ -120,7 +120,7 @@ export const SPRITE_DATA = {
     offset:[-50, -65],
   },
   LAND_LEFT: {
-    type: ACTION_TYPES.JUMP_LEFT,
+    type: ACTION_TYPES.LAND_LEFT,
     width: 96,
     dir: 1,
     img: 'jumpLeft.png',

@@ -10,8 +10,9 @@
     "build": "npm run build-css & npm run build-js",
     "watch-js": "watchify index.js -t browserify-css -o public/bundle.js -dv",
     "watch-css": "catw -c 'lessc --clean-css -' 'styles/*.less' -o public/styles.min.css",
-    "build-js": "NODE_ENV=production browserify -t browserify-css index.js | uglifyjs -cm > public/bundle.js",
-    "build-css": "lessc --clean-css styles/index.less public/styles.min.css"
+    "build-js": "browserify -t browserify-css index.js | uglifyjs -cm > public/bundle.js",
+    "build-css": "lessc --clean-css styles/index.less public/styles.min.css",
+    "postinstall": "npm run build"
   },
   "author": "morgantheplant",
     "dependencies": {
@@ -31,6 +32,12 @@
     "simple_animation_loop": "^1.0.1",
     "uglify-js": "^2.6.2",
     "watchify": "^3.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.1"
   },
   "browserify": {
     "transform": [

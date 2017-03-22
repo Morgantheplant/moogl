@@ -4,10 +4,9 @@ import AnimationLoop from 'simple_animation_loop';
 import { Engine } from 'matter-js';
 import { VECTORMAN } from './constants';
 
-const initGame = () => {
+const initGame = (animationLoop) => {
   // single animation loop passed into each body in the game
   // possibly refactor into singleton 
-  const animationLoop = new AnimationLoop();
   const player = new Player(Object.assign({}, { 
     animationLoop: animationLoop  
   }, VECTORMAN));
@@ -21,4 +20,33 @@ const initGame = () => {
 
 }
 
-document.addEventListener("DOMContentLoaded",initGame);
+const INTRO_MESSAGE = "Do you want to play a game in your browser?"
+
+const initIntro = ()=> {
+ const animationLoop = new AnimationLoop();
+ animationLoop.start();
+ const searchField = document.getElementById('search');
+ animationLoop.setAnimationTimeout(()=>{
+  typeMessage(INTRO_MESSAGE.split("").reverse(), animationLoop, searchField, initGame);
+ }, 3000)
+}
+
+const typeMessage = (message, loop, node, cb)=>{
+  if(message.length){
+    const nextLetter = message.pop();
+    console.log('next letter', nextLetter)
+    loop.setAnimationTimeout(()=>{
+      node.value = node.value += nextLetter;
+      typeMessage(message, loop, node, cb);
+    }, Math.random()*200);
+  } else {
+    loop.setAnimationTimeout(()=>{
+      node.value = "";
+    },1000)
+    loop.setAnimationTimeout(()=>{
+      cb(loop);
+    }, 2000)
+  }
+}
+
+document.addEventListener("DOMContentLoaded",initIntro);

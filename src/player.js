@@ -1,63 +1,64 @@
-import { Bodies, Body } from 'matter-js';
-import Sprite from './Sprite';
-import { setStyles } from './utils';
-import Bullet from './Bullet';
-import {DIRECTION, BULLETS, GAME_ITEM, KEYCODE } from '../constants';
-import Node from './Node';
+import { Bodies, Body } from "matter-js";
+import Sprite from "./Sprite";
+import Bullet from "./Bullet";
+import { DIRECTION, BULLETS, GAME_ITEM, KEYCODE } from "../constants";
+import Node from "./Node";
 
 class Player extends Node {
-  constructor(options){
+  constructor(options) {
     super(options);
     this.health = options.health || 50;
     this.sprite = this.createSpriteAnimations(options);
     this.addListeners();
   }
-  getBodyBase(options){
-    const body = Bodies.circle(100,100, this.size/2);
+  getBodyBase() {
+    const body = Bodies.circle(100, 100, this.size / 2);
     body.kind = GAME_ITEM.PLAYER;
     Body.set(body, {
-      frictionAir:0.0001,
+      frictionAir: 0.0001,
       friction: 0.005
     });
     return body;
   }
 
-  createSpriteAnimations(options){
-    const settings = Object.assign({}, options, {node:this.node})
+  createSpriteAnimations(options) {
+    const settings = Object.assign({}, options, { node: this.node });
     const sprite = new Sprite(settings);
     return sprite;
   }
 
-  jump(){
-    this.sprite.jump();
-    Body.setVelocity(this.body, {x:this.body.velocity.x,y:-2});
+  jump() {
+    if(!this.sprite.isJumping){
+      this.sprite.jump();
+      Body.setVelocity(this.body, { x: this.body.velocity.x, y: -2 });
+    }
   }
 
-  left(){
+  left() {
     this.sprite.left();
-    Body.setVelocity(this.body, {x:-2 ,y:this.body.velocity.y});
+    Body.setVelocity(this.body, { x: -2, y: this.body.velocity.y });
   }
 
-  right(){
+  right() {
     this.sprite.right();
-    Body.setVelocity(this.body, {x:2,y:this.body.velocity.y});
+    Body.setVelocity(this.body, { x: 2, y: this.body.velocity.y });
   }
 
-  shoot(){
-    if(!this.shootingDisabled){
+  shoot() {
+    if (!this.shootingDisabled) {
       this.sprite.shoot();
-      if(this.sprite.isJumping){
+      if (this.sprite.isJumping) {
         // delay bullet if jumping
         this.animationLoop.setAnimationTimeout(() => {
-          this.createBullet()
+          this.createBullet();
         }, 500);
       } else {
         this.createBullet();
       }
     }
   }
-  
-  createBullet(delay){
+
+  createBullet(delay) {
     const bulletType = BULLETS.REGULAR;
     const bullet = new Bullet({
       styles: bulletType.styles,
@@ -67,45 +68,44 @@ class Player extends Node {
       direction: this.direction,
       isJumping: this.sprite.isJumping
     });
-   
+
     this.game.addItem(bullet);
     const x = this.sprite.direction === DIRECTION.RIGHT ? 15 : -15;
-    Body.setVelocity(bullet.body, {x:x, y:bullet.body.velocity.y});
+    Body.setVelocity(bullet.body, { x, y: bullet.body.velocity.y });
     this.animationLoop.setAnimationTimeout(() => {
       bullet && bullet.removeBullet();
     }, delay || 1000);
-    // control shooting rate 
+    // control shooting rate
     this.shootingDisabled = true;
     this.animationLoop.setAnimationTimeout(() => {
-       this.shootingDisabled = false;
+      this.shootingDisabled = false;
     }, bulletType.shootingRate);
   }
 
-  addListeners(){
-    document.addEventListener('keydown',(e) => {
-      switch (e.keyCode){
-        case KEYCODE.UP:
-          e.preventDefault()
-          this.jump();
-          break;
-        case KEYCODE.LEFT:
-          e.preventDefault()
-          this.left();
-          break;
-        case KEYCODE.RIGHT:
-          e.preventDefault()
-          this.right();
-          break; 
-        case KEYCODE.SPACE:
-          e.preventDefault()
-          this.shoot()
-          break;       
+  addListeners() {
+    document.addEventListener("keydown", (e) => {
+      switch (e.keyCode) {
+      case KEYCODE.UP:
+        e.preventDefault();
+        this.jump();
+        break;
+      case KEYCODE.LEFT:
+        e.preventDefault();
+        this.left();
+        break;
+      case KEYCODE.RIGHT:
+        e.preventDefault();
+        this.right();
+        break;
+      case KEYCODE.SPACE:
+        e.preventDefault();
+        this.shoot();
+        break;
       }
     });
   }
 
 }
-
 
 
 export default Player;

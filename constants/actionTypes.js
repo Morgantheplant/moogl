@@ -10,5 +10,7 @@ export const ACTION_TYPES = {
   JUMP_SHOOT_RIGHT: 'jumpShootRight',
   JUMP_SHOOT_LEFT: 'jumpShoopLeft',
   IDLE_JUMP_RIGHT: 'idleJumpRight',
-  IDLE_JUMP_LEFT: 'idleJumpLeft'
+  IDLE_JUMP_LEFT: 'idleJumpLeft',
+  LAND_LEFT: 'landLeft',
+  LAND_RIGHT: 'landRight'
 }
