@@ -12,7 +12,7 @@
     "watch-css": "catw -c 'lessc --clean-css -' 'styles/*.less' -o public/styles.min.css",
     "build-js": "browserify -t browserify-css index.js | uglifyjs -cm > public/bundle.js",
     "build-css": "lessc --clean-css styles/index.less public/styles.min.css",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build-js"
   },
   "author": "morgantheplant",
     "dependencies": {
