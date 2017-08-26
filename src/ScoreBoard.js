@@ -11,15 +11,15 @@ class ScoreBoard {
     this.node.className = "scoreboard";
     this.healthNode = document.createElement("h3");
     this.scoreNode = document.createElement("h3");
-    this.healthNode.innerText = this.health;
-    this.scoreNode.innerText = this.score;
+    this.healthNode.innerText = `health: ${this.health}`;
+    this.scoreNode.innerText = `score: ${this.score}`;
     this.node.appendChild(this.healthNode);
     this.node.appendChild(this.scoreNode);
     this.entry.appendChild(this.node);
   }
   addPoint() {
     this.score += 10;
-    this.scoreNode.innerText = this.score;
+    this.scoreNode.innerText = `score: ${this.score}`;
   }
 
   endGame() {
@@ -29,7 +29,7 @@ class ScoreBoard {
   loseHealth() {
     if (this.health > 0) {
       this.health--;
-      this.healthNode.innerText = this.health;
+      this.healthNode.innerText = `health: ${this.health}`;
     } else {
       this.endGame();
     }

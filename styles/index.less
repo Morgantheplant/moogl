@@ -5,9 +5,9 @@ html {
   box-sizing: inherit;
 }
 body{
-  background: black;
+  background: white;
 }
-.bg, .frame{
+.bg, .frame, .bg-base{
   position: absolute;
   top: 0;
   height:100%;
@@ -15,13 +15,23 @@ body{
 }
 
 .bg{
-  background-image: url('/static/images/background.png');
-  background-size:cover;
+  background-image: url('/static/images/background2.png');
+}
+
+.bg-base{
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8b32ff), color-stop(52%,#28d6d6), color-stop(60%,#207cca), color-stop(60%,#207cca), color-stop(100%,#11090c));
+  background: -webkit-linear-gradient(top, #8b32ff 0%,#28d6d6 52%,#207cca 60%,#207cca 60%,#11090c 100%);
+  background: -o-linear-gradient(top, #8b32ff 0%,#28d6d6 52%,#207cca 60%,#207cca 60%,#11090c 100%);
+  background: -ms-linear-gradient(top, #8b32ff 0%,#28d6d6 52%,#207cca 60%,#207cca 60%,#11090c 100%);
+  background: linear-gradient(to bottom, #8b32ff 0%,#28d6d6 52%,#207cca 60%,#207cca 60%,#11090c 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8b32ff', endColorstr='#11090c',GradientType=0 );
 }
 
 .frame{ 
   background: white;
-  //background: rgba(0,0,0,0.8);
+  -webkit-transition: background-color 3s linear;
+  -ms-transition: background-color 3s linear;
+  transition: background-color 3s linear;
 }
 
 
@@ -180,4 +190,6 @@ body{
   position: fixed;
   top: 10px;
   left:50px;
+  font-family: 'Press Start 2P', cursive;
 }
+

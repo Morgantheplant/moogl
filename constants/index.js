@@ -23,3 +23,5 @@ export const KEYCODE = {
   RIGHT: 39,
   SPACE: 32
 }
+
+export const MAX_ENEMIES = 10;

@@ -20,7 +20,7 @@ const initGame = (animationLoop) => {
 
 }
 
-const INTRO_MESSAGE = "Do you want to play a game in your browser?"
+const INTRO_MESSAGE = "Hello! This game is using pure DOM, requestAnimationFrame, and MatterJS..."
 
 const initIntro = ()=> {
  const animationLoop = new AnimationLoop();
@@ -34,7 +34,6 @@ const initIntro = ()=> {
 const typeMessage = (message, loop, node, cb)=>{
   if(message.length){
     const nextLetter = message.pop();
-    console.log('next letter', nextLetter)
     loop.setAnimationTimeout(()=>{
       node.value = node.value += nextLetter;
       typeMessage(message, loop, node, cb);

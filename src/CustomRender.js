@@ -1,5 +1,5 @@
 import { World, Engine, Composite, Bodies, Render, Events } from "matter-js";
-import { GAME_ITEM, ALIEN } from "../constants";
+import { GAME_ITEM, ALIEN, MAX_ENEMIES } from "../constants";
 import { COLLSION_MAP } from "../collisions";
 import ScoreBoard from "./ScoreBoard";
 import Enemy from "./Enemy";
@@ -59,9 +59,10 @@ class CustomRender {
     const top = Bodies.rectangle(width / 2, 0, width, 50, { isStatic: true });
     const logoRect = document.getElementsByClassName("logo")[0].getBoundingClientRect();
     const logo = Bodies.rectangle(logoRect.left + 265 / 2, logoRect.top + 109 + 106 / 2, 265, 106, { isStatic: true });
+    this.enemyCount = 0;
     this.bodies = this.bodies.concat([floor, right, left, top, logo]);
     floor.kind = GAME_ITEM.GROUND;
-
+    
 
     World.add(this.engine.world, this.bodies);
 
@@ -74,6 +75,7 @@ class CustomRender {
     this.animationLoop.addAnimation(this.updateBodies);
     this.addEnemies();
     this.addScoreboard();
+    this.animationLoop.setAnimationTimeout(this.backgroundIntro, 6000);
   }
   updateEngine() {
     Engine.update(this.engine, 1000 / 60);
@@ -100,6 +102,11 @@ class CustomRender {
     this.scoreBoard = new ScoreBoard({ entry: this.entry });
   }
 
+  backgroundIntro(){
+    document.getElementById('bg-color').style.opacity = 1
+    document.getElementById('frame').style.backgroundColor = 'rgba(255,255,255,0)';
+  }
+
   removeItem({ body, node }) {
     if (body && node) {
       World.remove(this.engine.world, body);
@@ -107,15 +114,19 @@ class CustomRender {
     }
   }
   addEnemies() {
-    const enemy = new Enemy(Object.assign({}, {
-      node: document.createElement("div"),
-      game: this,
-      animationLoop: this.animationLoop
-    }, ALIEN));
-    this.addItem(enemy);
+
+    if(this.enemyCount < MAX_ENEMIES){
+      const enemy = new Enemy(Object.assign({}, {
+        node: document.createElement("div"),
+        game: this,
+        animationLoop: this.animationLoop
+      }, ALIEN));
+      this.addItem(enemy);
+      this.enemyCount++;
+    }
 
     this.animationLoop.setAnimationTimeout(() => {
-      this.addEnemies();
+        this.addEnemies();
     }, Math.max(Math.random() * 4000, 500));
   }
 }

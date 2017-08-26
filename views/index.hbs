@@ -3,40 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <title>{{TITLE}}</title>
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="static/styles.min.css">
 </head>
 <body>
-  <div class="bg">
-    <div class="frame">
-      <div id="entry"></div>
-      <div id="entry2"></div>
+  <div id="bg-color" class="bg-base"></div>
+  <div class="bg"></div>
+      <div id="frame" class="frame">
+        <div id="entry"></div>
+        <div id="entry2"></div>
 
-      <div class="logo-contain">
-        <img class="logo" src="static/images/google.png" />
-      </div>
-      <div class="center-contain" >
-        <div class="input-contain" >
-          <input class="main-input" id="search" type="search" />
-          <img class="speak-search-icon" src="static/images/speak-search-icon.png" alt="speak search icon"/>
-          <div class="search-tooltip">Search by voice<div class="arrow-up"></div></div>
+        <div class="logo-contain">
+          <img class="logo" src="static/images/google.png" />
         </div>
-        <div class="btn-contain">
-          <input class="btn-main google-search" value="Google Search" aria-label="Google Search" name="btnK" type="submit" jsaction="sf.chk">
-          <input class="btn-main im feeling lucky" value="I'm Feeling Lucky" aria-label="I'm Feeling Lucky" id="gbqfbb" name="btnI" type="submit">
+        <div class="center-contain" >
+          <div class="input-contain" >
+            <input class="main-input" id="search" type="search" />
+            <img class="speak-search-icon" src="static/images/speak-search-icon.png" alt="speak search icon"/>
+            <div class="search-tooltip">Search by voice<div class="arrow-up"></div></div>
+          </div>
+          <div class="btn-contain">
+            <input id="goog-search" class="btn-main google-search" value="Google Search" aria-label="Google Search" name="btnK" type="submit" />
+            <input id="feeling-lucky" class="btn-main im feeling lucky" value="I'm Feeling Lucky" aria-label="I'm Feeling Lucky" id="gbqfbb" name="btnI" type="submit" />
+          </div>
+        </div>
+
+        <div class="fbar">
+          <span id="fsr">
+            <a href="//www.google.com/intl/en/policies/privacy/?fg=1">Privacy</a>
+            <a  href="//www.google.com/intl/en/policies/terms/?fg=1">Terms</a>
+
+            <a  href="https://www.google.com/preferences?hl=en" id="fsettl" aria-controls="fsett" aria-expanded="false" role="button" jsaction="foot.cst">Settings</a>
+          </span></span> <span id="fsl"> <a  href="//www.google.com/intl/en/ads/?fg=1">Advertising</a> <a  href="//www.google.com/services/?fg=1">Business</a> <a  href="//www.google.com/intl/en/about.html?fg=1">About</a> 
         </div>
       </div>
-
-  <div class="fbar">
-    <span id="fsr">
-      <a href="//www.google.com/intl/en/policies/privacy/?fg=1">Privacy</a>
-      <a  href="//www.google.com/intl/en/policies/terms/?fg=1">Terms</a>
-      
-      <a  href="https://www.google.com/preferences?hl=en" id="fsettl" aria-controls="fsett" aria-expanded="false" role="button" jsaction="foot.cst">Settings</a>
-      </span></span> <span id="fsl"> <a  href="//www.google.com/intl/en/ads/?fg=1">Advertising</a> <a  href="//www.google.com/services/?fg=1">Business</a> <a  href="//www.google.com/intl/en/about.html?fg=1">About</a> 
-      </div>
-    </div>
-  </div> 
-
-<script src="static/bundle.js" type="text/javascript"></script>
+  <script src="static/googleSearchEvents.js" type="text/javascript"></script>
+  <script src="static/bundle.js" type="text/javascript"></script>
 </body>
 </html>

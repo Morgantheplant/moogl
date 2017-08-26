@@ -18,18 +18,20 @@ class Bullet extends Node {
   removeSelf() {
     if (this.node) {
       this.animationLoop && this.animationLoop.setAnimationTimeout(() => {
+        debugger
         this.removeBullet();
-      }, 200);
+      }, 100);
       setStyles(this.node, {
         background: "yellow",
         border: "2px solid orange",
         boxShadow: "0px 0px 10px red",
         height: "20px",
         width: "20px",
-        borderRadius: "0px"
+        borderRadius: "50%"
       });
 
       this.game.scoreBoard.addPoint();
+      this.game.enemyCount > 0 && this.game.enemyCount--;
     }
   }
 

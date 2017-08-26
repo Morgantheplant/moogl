@@ -29,7 +29,6 @@ function Game(node){
   this.mainEl = new DOMElement(this.node, {
     properties: {
       'background-image': 'url(./images/city2.png)',
-      // 'background-color': 'teal',
       'background-repeat': 'repeat-x',
       'background-position': 'center',
       'background-position': '10px'

@@ -11,6 +11,10 @@ class Enemy extends Node {
     return body;
   }
   removeSelf() {
+    var explode = document.createElement('img');
+    explode.src = "static/images/explosion.gif";
+
+    this.node.appendChild(explode);
     setStyles(this.node, {
       backgroundImage: "url('/static/images/enemy-dead.png')"
     });
